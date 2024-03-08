@@ -16,15 +16,13 @@ const protect_keylist = [
   "password",
 ]
 
-let index_html = "https://crazypeace.github.io/Url-Shorten-Worker/" + config.theme + "/index.html"
-let no_ref_html = "https://crazypeace.github.io/Url-Shorten-Worker/no-ref.html"
+let index_html = "https://Sourceverse.github.io/Url-Shorten-Worker/" + config.theme + "/index.html"
+let no_ref_html = "https://Sourceverse.github.io/Url-Shorten-Worker/no-ref.html"
 
 const html404 = `<!DOCTYPE html>
   <html>
   <body>
     <h1>404 Not Found.</h1>
-    <p>The url you visit is not found.</p>
-    <p> <a href="https://github.com/crazypeace/Url-Shorten-Worker/" target="_self">Fork me on GitHub</a> </p>
   </body>
   </html>`
 
@@ -148,7 +146,7 @@ async function handleRequest(request) {
 
     if (req_cmd == "add") {
       if ((config.system_type == "shorturl") && !await checkURL(req_url)) {
-        return new Response(`{"status":500, "url": "` + req_url + `", "error":"Error: Url illegal."}`, {
+        return new Response(`{"status":500, "url": "` + req_url + `", "error":"错误：网址非法！"}`, {
           headers: response_header,
         })
       }
@@ -157,14 +155,14 @@ async function handleRequest(request) {
       if (config.custom_link && (req_key != "")) {
         // Refuse 'password" as Custom shortURL
         if (protect_keylist.includes(req_key)) {
-          return new Response(`{"status":500,"key": "` + req_key + `", "error":"Error: Key in protect_keylist."}`, {
+          return new Response(`{"status":500,"key": "` + req_key + `", "error":"错误：键入protect_keylist。"}`, {
             headers: response_header,
           })
         }
 
         let is_exist = await is_url_exist(req_key)
         if ((!config.overwrite_kv) && (is_exist)) {
-          return new Response(`{"status":500,"key": "` + req_key + `", "error":"Error: Specific key existed."}`, {
+          return new Response(`{"status":500,"key": "` + req_key + `", "error":"短链接已经存在"}`, {
             headers: response_header,
           })
         } else {
@@ -192,14 +190,14 @@ async function handleRequest(request) {
           headers: response_header,
         })
       } else {
-        return new Response(`{"status":500, "key": "", "error":"Error: Reach the KV write limitation."}`, {
+        return new Response(`{"status":500, "key": "", "error":"错误：达到 KV 写入限制。"}`, {
           headers: response_header,
         })
       }
     } else if (req_cmd == "del") {
       // Refuse to delete 'password' entry
       if (protect_keylist.includes(req_key)) {
-        return new Response(`{"status":500, "key": "` + req_key + `", "error":"Error: Key in protect_keylist."}`, {
+        return new Response(`{"status":500, "key": "` + req_key + `", "错误":"错误：键入 protected_keylist。"}`, {
           headers: response_header,
         })
       }
@@ -217,7 +215,7 @@ async function handleRequest(request) {
     } else if (req_cmd == "qry") {
       // Refuse to query 'password'
       if (protect_keylist.includes(req_key)) {
-        return new Response(`{"status":500,"key": "` + req_key + `", "error":"Error: Key in protect_keylist."}`, {
+        return new Response(`{"status":500,"key": "` + req_key + `", "error":"错误：键入protect_keylist。"}`, {
           headers: response_header,
         })
       }
@@ -231,13 +229,13 @@ async function handleRequest(request) {
           headers: response_header,
         })
       } else {
-        return new Response(`{"status":500, "key": "` + req_key + `", "error":"Error: Key not exist."}`, {
+        return new Response(`{"status":500, "key": "` + req_key + `", "error":"错误：密钥不存在。"}`, {
           headers: response_header,
         })
       }
     } else if (req_cmd == "qryall") {
       if ( !config.load_kv) {
-        return new Response(`{"status":500, "error":"Error: Config.load_kv false."}`, {
+        return new Response(`{"status":500, "error":"错误：Config.load_kv false。"}`, {
           headers: response_header,
         })
       }
@@ -269,7 +267,7 @@ async function handleRequest(request) {
           headers: response_header,
         })
       } else {
-        return new Response(`{"status":500, "error":"Error: Load keyList failed."}`, {
+        return new Response(`{"status":500, "error":"错误：加载密钥列表失败。"}`, {
           headers: response_header,
         })
       }
@@ -293,7 +291,7 @@ async function handleRequest(request) {
   // 如果path为空, 即直接访问本worker
   // If visit this worker directly (no path)
   if (!path) {
-    return Response.redirect("https://zelikk.blogspot.com/search/label/Url-Shorten-Worker", 302)
+    return Response.redirect("https://steamtools.net", 302)
     /* new Response(html404, {
       headers: {
         "content-type": "text/html;charset=UTF-8",
