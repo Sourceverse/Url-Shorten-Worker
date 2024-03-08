@@ -186,7 +186,7 @@ function deleteShortUrl(delKeyPhrase) {
       // 加载localStorage
       loadUrlList()
 
-      document.getElementById("result").innerHTML = "Delete Successful"
+      document.getElementById("result").innerHTML = "删除成功"
     } else {
       document.getElementById("result").innerHTML = res.error;
     }
